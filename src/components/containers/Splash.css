@@ -1,0 +1,36 @@
+.background{
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+	top: 0vh;
+	left: 0;
+    background: linear-gradient(to top right, rgb(254, 214, 173), rgb(58, 155, 113)) fixed;
+}
+
+.loginButton{
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+	bottom: 10vh;
+	left: 0;
+    right: 0;
+    
+    margin: auto;
+
+    width: 300px;
+    height: 50px;
+    border-radius: 25px; 
+    background-color: #fff;
+
+
+}
+
+.loginText{
+    font-weight: 700;
+    font-family: 'Rubik', sans-serif;
+    font-size: 23px;
+    widows: 100%;
+    margin: 0 auto;
+    color:  rgb(131, 198, 123);
+}
