@@ -8,11 +8,6 @@ exports.addUserListening = async (req, res) => {
     let artistsArray = req.body.artists.items.map((artist) => new Artist(artist));
     const userNode = await dbUtil.addUser(user);
     const artistNodes = await dbUtil.addArtists(artistsArray);
-    const edges = await dbUtil.createRelationships(user, artistsArray); 
+    const edges = await dbUtil.createRelationships(user, artistsArray);
     res.json(edges);
 };
-
-exports.getGraph = async (req, res) => {
-    const graphData = await dbUtil.getGraph();
-    res.json(graphData);
-}

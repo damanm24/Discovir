@@ -20,7 +20,8 @@ class View extends React.Component {
 
     getHashParams() {
         var hashParams = {};
-        var e, r = /([^&;=]+)=?([^&;]*)/g, q = window.location.hash.substring(1);
+        var e, r = /([^&;=]+)=?([^&;]*)/g,
+            q = window.location.hash.substring(1);
         // eslint-disable-next-line
         while (e = r.exec(q)) {
             hashParams[e[1]] = decodeURIComponent(e[2]);
@@ -29,16 +30,10 @@ class View extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                {!this.state.loggedIn ? (
-                    <Splash></Splash>
-                ) : (
-                        <p
-                            user={this.state.uri}>
-                        </p>
-                    )
-                }
+        return (<div> 
+            {!this.state.loggedIn ? (<Splash></Splash>) 
+            : 
+            (<p> user = {this.state.uri}</p>)}
             </div>
         );
     }

@@ -18,4 +18,8 @@ const getUserListeningHistory = async () => {
     return await spotifyWebApi.getMyTopArtists(options);
 }
 
-export default {setAccessToken, getUserProfile, getUserListeningHistory}
+export default {
+    setAccessToken,
+    getUserProfile,
+    getUserListeningHistory
+}

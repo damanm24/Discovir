@@ -18,9 +18,9 @@ exports.addArtists = async (artists) => {
         props: JSON.parse(JSON.stringify(artists))
     }
     return await getSession()
-    .run('FOREACH (entry in $props | '
-    + 'MERGE(artist:Artist {id: entry.id}) ' 
-    + 'SET artist = entry)', artistsList)
+        .run('FOREACH (entry in $props | ' +
+            'MERGE(artist:Artist {id: entry.id}) ' +
+            'SET artist = entry)', artistsList)
 
 }
 
@@ -30,15 +30,8 @@ exports.createRelationships = async (user, artists) => {
         artistList: JSON.parse(JSON.stringify(artists))
     }
     return await getSession().run('MERGE (user:User {id: $id}) ' +
-    'FOREACH (a IN $artistList | ' +
-    'MERGE (artist:Artist {id: a.id}) ' +
-    'SET artist = a ' +
-    'MERGE (user)-[:LISTENS_TO]->(artist))', props);
+        'FOREACH (a IN $artistList | ' +
+        'MERGE (artist:Artist {id: a.id}) ' +
+        'SET artist = a ' +
+        'MERGE (user)-[:LISTENS_TO]->(artist))', props);
 }
-
-exports.getGraph = async () => {
-    return await getSession().run('MATCH (a)-[r]->(b) ' +
-    'WITH collect({source: a.name, target: b.name, caption: type(r)}) AS edges ' +
-    'return edges')
-}
-

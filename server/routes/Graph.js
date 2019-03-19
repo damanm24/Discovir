@@ -4,6 +4,6 @@ let graphController = require('./controllers/graphController');
 
 
 router.post("/addUserHistory", graphController.addUserListening);
-router.get("/getGraph", graphController.getGraph);
+//router.get("/getGraph", graphController.getGraph);
 
 module.exports = router;
