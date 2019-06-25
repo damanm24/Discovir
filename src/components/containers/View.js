@@ -1,6 +1,7 @@
 //The class that renders the viewport for the app
 import React from 'react';
 import Splash from './Splash';
+import GraphViewer from '../GraphViewer';
 import spotifyUtils from "../../utils/SpotifyAPI";
 
 class View extends React.Component {
@@ -33,7 +34,8 @@ class View extends React.Component {
         return (<div> 
             {!this.state.loggedIn ? (<Splash></Splash>) 
             : 
-            (<p> user = {this.state.uri}</p>)}
+            (<div><svg></svg>
+            <GraphViewer></GraphViewer> </div>)}
             </div>
         );
     }

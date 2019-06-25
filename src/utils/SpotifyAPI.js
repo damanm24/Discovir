@@ -6,8 +6,8 @@ const setAccessToken = (token) => {
     spotifyWebApi.setAccessToken(token);
 }
 
-const getUserProfile = async (id) => {
-    return await spotifyWebApi.getUser(id);
+const getUserProfile = async () => {
+    return await spotifyWebApi.getMe();
 }
 
 const getUserListeningHistory = async () => {

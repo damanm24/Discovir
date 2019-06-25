@@ -1,7 +1,7 @@
 "use strict";
 const neo4j = require('neo4j-driver').v1;
 const uri = "bolt://localhost"
-const user = "test"
+const user = "admin"
 const password = "1234"
 const driver = neo4j.driver(uri, neo4j.auth.basic(user, password));
 

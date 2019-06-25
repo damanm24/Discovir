@@ -1,5 +1,4 @@
 import axios from 'axios';
-import _ from 'lodash';
 
 const getGraphData = async () => {
     const response = await axios.post("http://localhost:7474/db/data/transaction/commit", {
@@ -9,9 +8,17 @@ const getGraphData = async () => {
         }]
     }, {
         headers: {
-            Authorization: 'Basic dGVzdDoxMjM0',
+            Authorization: 'Basic YWRtaW46MTIzNA==',
             'content-type': 'application/json'
         }
+    });
+    return response.data;
+}
+
+const addUserListeningHistory = async (user, history) => {
+    const response = await axios.post("http://localhost:8080/graph/addUserHistory", {
+        user: user,
+        artists: history
     });
     return response.data;
 }
@@ -49,5 +56,6 @@ const formatGraph = async (graphData) => {
 
 export default {
     getGraphData,
-    formatGraph
+    formatGraph,
+    addUserListeningHistory
 };
