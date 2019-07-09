@@ -33,8 +33,10 @@ const formatGraph = async (graphData) => {
                 nodeSet.add(node.id);
                 var newNode = {
                     id: node.id,
+                    svg:node.properties.image,
                     label: node.labels[0],
-                    title: node.properties.name
+                    size: 400,
+                    name: node.properties.name
                 };
                 nodes.push(newNode);
             }

@@ -15,7 +15,7 @@
     "neo4j-driver": "^1.7.5",
     "querystring": "^0.2.0",
     "react": "^16.8.6",
-    "react-d3-graph": "^2.0.2",
+    "react-d3-graph": "^2.1.0",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",

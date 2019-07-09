@@ -34,8 +34,7 @@ class View extends React.Component {
         return (<div> 
             {!this.state.loggedIn ? (<Splash></Splash>) 
             : 
-            (<div><svg></svg>
-            <GraphViewer></GraphViewer> </div>)}
+            (<GraphViewer></GraphViewer> )}
             </div>
         );
     }

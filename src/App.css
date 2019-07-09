@@ -2,11 +2,18 @@ body {
   background-color: #fff;
 }
 
-a{
-  text-decoration: none;
+.links line {
+  stroke: grey;
 }
 
-.text{
-  font-family: 'Karla', sans-serif, bold;
-  font-weight: bold;
+.flag {
+  background: url("https://dl.dropboxusercontent.com/s/yx2q52k9g420tov/flags.png") no-repeat;
+  background-color: #000;
+  position: absolute;
+}
+
+.tooltip {
+  position: absolute;
+  background-color: lightgrey;
+  padding: 10px;
 }
