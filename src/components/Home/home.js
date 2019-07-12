@@ -15,32 +15,32 @@ class Home extends Component {
       <div>
         <h1>Welcome!</h1>
         <p>
-          My name is Daman Mulye, and this is a sample project I've created to
-          help me collect some data on an assignment I am working on. The goal
-          of the assignment is for me to design a system to recommend something
-          to you, the user. But before I get to the actual meat of the
-          assignment, I need to collect some data about you. If you decide to
-          help me out (for which I would be very grateful for), please log into
-          your Spotify account for me. None of your sensitive data is saved.
-          After logging in you will be taken to a page that will show you
-          exactly what data I'm collecting about you and the other people that
-          have clicked on the link. I believe in complete transparency when it
-          it comes to data collection so you can find a list below of all the
-          data points I am using.
+          My name is Daman Mulye, and you've reached my data collection portal.
+          I'm trying to design my own recommendation engine and I need your help
+          to do so. If you are inclined to help me out please click the link at
+          the bottom of this paragraph entitled, "Log in with spotify". It will
+          take you to the official spotify website and ask you to log in so I
+          can access information about the music you listen to. If you'd like to
+          know more about the application please see below.
         </p>
-        <ul>
-          <li>Username</li>
-          <li>Name</li>
-          <li>Your most frequently listened to artists.</li>
-          <li>50 of your most recently saved tracks in your library</li>
-        </ul>
+        <a href="https://polar-waters-86790.herokuapp.com/login">
+          Log in with spotify
+        </a>
+
         <p>
-          These data points will help me establish your preferences in music.
-          After I've collected enough data from people I can then begin to
-          deploy my recommendation engine. And there will be a full functioning
-          app.
+          I plan to use this data to see what information is relevant in
+          determining new music for you to listen to. The information I store
+          can be seen below.
+          <ul>
+            <li>Username</li>
+            <li>Name</li>
+            <li>Your most frequently listened to artists.</li>
+            <li>50 of your most recently saved tracks in your library</li>
+          </ul>
+          After I've collected enough data from users I will be able to begin
+          developing my recommender system and publish it for anyone and
+          everyone to use. THank you for considering helping me out.
         </p>
-        <a href="https://polar-waters-86790.herokuapp.com/login">Log in with spotify</a>
       </div>
     );
   }
