@@ -40,7 +40,7 @@ class Home extends Component {
           deploy my recommendation engine. And there will be a full functioning
           app.
         </p>
-        <a href="http://localhost:8080/login">Log in with spotify</a>
+        <a href="https://polar-waters-86790.herokuapp.com/login">Log in with spotify</a>
       </div>
     );
   }
