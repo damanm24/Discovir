@@ -1,7 +1,16 @@
 import React, { Component } from "react";
 import DataHandler from "../utils/DataHandler";
 import * as d3 from "d3";
+import { connect } from "react-redux";
 import SpotifyAPI from "../utils/SpotifyAPI";
+import "./test.png";
+
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.loggedIn,
+    accessToken: state.accessToken
+  };
+};
 
 class GraphViewer extends Component {
   constructor() {
@@ -12,22 +21,29 @@ class GraphViewer extends Component {
   }
 
   async componentWillMount() {
-    const dragStart = d => {
+    function dblclick(d) {
+      d.fx = null;
+      d.fy = null;
+    }
+
+    function dragstarted(d) {
       if (!d3.event.active) simulation.alphaTarget(0.3).restart();
       d.fx = d.x;
       d.fy = d.y;
-    };
+    }
 
-    const drag = d => {
+    function dragged(d) {
       d.fx = d3.event.x;
       d.fy = d3.event.y;
-    };
+    }
 
-    const dragEnd = d => {
+    function dragended(d) {
       if (!d3.event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-    };
+      // Allows NODE FIXING
+      // d.fx = null;
+      // d.fy = null;
+    }
+
     var ticked = function() {
       link
         .attr("x1", function(d) {
@@ -42,13 +58,12 @@ class GraphViewer extends Component {
         .attr("y2", function(d) {
           return d.target.y + 25;
         });
-
       node
         .attr("x", function(d) {
-          return d.x;
+          return d.label === "User" ? d.x - 20 : d.x;
         })
         .attr("y", function(d) {
-          return d.y;
+          return d.label === "User" ? d.y - 20 : d.y;
         });
     };
     let graph = await DataHandler.getGraphData();
@@ -57,11 +72,11 @@ class GraphViewer extends Component {
     const height = window.innerHeight;
 
     var tooltip = d3
-      .select(".App")
+      .select("#root")
       .append("div")
       .attr("class", "tooltip");
     var svg = d3
-      .select(".App")
+      .select("#root")
       .append("svg")
       .attr("width", width)
       .attr("height", height);
@@ -74,9 +89,9 @@ class GraphViewer extends Component {
           .id(function(d) {
             return d.id;
           })
-          .distance(100)
+          .distance(150)
       )
-      .force("charge", d3.forceManyBody().strength(-1000))
+      .force("charge", d3.forceManyBody().strength(-1500))
       .force("center", d3.forceCenter(width / 2, height / 2));
 
     var link = svg
@@ -94,20 +109,34 @@ class GraphViewer extends Component {
       .data(graph.nodes)
       .enter()
       .append("g")
+      .attr("id", d => {
+        return d.label;
+      })
       .attr("height", 200)
       .attr("width", 200)
       .append("image")
       .attr("href", function(d) {
-        return d.svg;
+        if (d.svg) {
+          return d.svg;
+        } else {
+          return "https://i.imgur.com/CkMTStp.png";
+        }
+      })
+      .attr("id", d => {
+        if (d.svg) {
+          return "artist";
+        } else {
+          return "user";
+        }
       })
       .attr("height", 40)
       .attr("width", 40)
       .call(
         d3
           .drag()
-          .on("start", dragStart)
-          .on("drag", drag)
-          .on("end", dragEnd)
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended)
       )
       .on("mouseover", function(d) {
         return tooltip.style("visibility", "visible").text(d.name);
@@ -123,17 +152,19 @@ class GraphViewer extends Component {
       })
       .on("mouseout", function() {
         return tooltip.style("visibility", "hidden");
-      });
-
+      })
+      .on("dblclick", dblclick);
+       
     simulation.nodes(graph.nodes).on("tick", ticked);
 
     simulation.force("link").links(graph.links);
   }
 
   async componentDidMount() {
+    SpotifyAPI.setAccessToken(this.props.accessToken);
     let user = await SpotifyAPI.getUserProfile();
     let history = await SpotifyAPI.getUserListeningHistory();
-    let test = await DataHandler.addUserListeningHistory(user, history);
+    await DataHandler.addUserListeningHistory(user, history);
     let graph = await DataHandler.getGraphData();
     graph = await DataHandler.formatGraph(graph);
     console.log(JSON.stringify(graph));
@@ -147,4 +178,4 @@ class GraphViewer extends Component {
   }
 }
 
-export default GraphViewer;
+export default connect(mapStateToProps)(GraphViewer);

@@ -8,30 +8,36 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
-    "d3": "^5.9.2",
+    "d3": "^5.9.7",
     "dotenv": "^8.0.0",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.13",
     "morgan": "^1.9.1",
     "neo4j-driver": "^1.7.5",
+    "neovis.js": "^1.1.0",
+    "prop-types": "^15.7.2",
     "querystring": "^0.2.0",
     "react": "^16.8.6",
     "react-d3-graph": "^2.1.0",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-resize-aware": "^3.0.0-beta.3",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
+    "redux": "^4.0.3",
     "request": "^2.88.0",
     "spotify-web-api-js": "^1.2.0"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0",
+    "concurrently": "^4.1.1",
     "nodemon": "^1.19.1"
   },
   "scripts": {
-    "start": "set NODE_ENV=\"production\" && node server/server.js",
+    "start": "export NODE_ENV=\"production\" && node server/server.js",
     "build": "react-scripts build",
     "dev": "concurrently \"react-scripts start\" \"nodemon server/server.js\"",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"

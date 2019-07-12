@@ -1,14 +1,15 @@
 import axios from 'axios';
 
 const getGraphData = async () => {
-    const response = await axios.post("http://localhost:7474/db/data/transaction/commit", {
+    //http://localhost:7474/db/data/
+    const response = await axios.post("https://hobby-phccgenlakdagbkekfmdoidl.dbs.graphenedb.com:24780/db/data/transaction/commit", {
         "statements": [{
-            "statement": "MATCH path = (n)-[r]->(m) RETURN path",
+            "statement": "MATCH path = (n:User)-[r:LISTENS_TO]->(m:Artist) RETURN path",
             "resultDataContents": ["graph"]
         }]
     }, {
         headers: {
-            Authorization: 'Basic YWRtaW46MTIzNA==',
+            Authorization: 'Basic QWRtaW46Yi44MlFWbUdTVzZHdTcuOWpSMVQ4enZmWmRCOVZDZA==',
             'content-type': 'application/json'
         }
     });

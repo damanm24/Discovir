@@ -6,6 +6,7 @@ class Artist {
         this.name = artistObj.name;
         this.popularity = artistObj.popularity;
         this.image = artistObj.images[1].url;
+        this.genres = artistObj.genres;
     }
 }
 
