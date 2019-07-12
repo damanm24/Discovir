@@ -20,8 +20,10 @@ class Home extends Component {
           to do so. If you are inclined to help me out please click the link at
           the bottom of this paragraph entitled, "Log in with spotify". It will
           take you to the official spotify website and ask you to log in so I
-          can access information about the music you listen to. If you'd like to
-          know more about the application please see below.
+          can access information about the music you listen to. Afterwards you
+          will be taken to a page that shows a visual representation of the data
+          I've collected. If you'd like to know more about the application
+          please see below.
         </p>
         <a href="https://polar-waters-86790.herokuapp.com/login">
           Log in with spotify
@@ -39,7 +41,7 @@ class Home extends Component {
           </ul>
           After I've collected enough data from users I will be able to begin
           developing my recommender system and publish it for anyone and
-          everyone to use. THank you for considering helping me out.
+          everyone to use. Thank you for considering helping me out.
         </p>
       </div>
     );
