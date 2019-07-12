@@ -167,7 +167,6 @@ class GraphViewer extends Component {
     await DataHandler.addUserListeningHistory(user, history);
     let graph = await DataHandler.getGraphData();
     graph = await DataHandler.formatGraph(graph);
-    console.log(JSON.stringify(graph));
     this.setState({
       graphData: graph
     });

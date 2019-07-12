@@ -133,7 +133,8 @@ app.get('/callback', function(req, res) {
                 });
 
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('https://polar-waters-86790.herokuapp.com/#' +
+                let redir = process.env.NODE_ENV === 'production' ? "https://polar-waters-86790.herokuapp.com/#":'http://localhost:3000/#';
+                res.redirect(redir +
                     querystring.stringify({
                         access_token: access_token,
                         refresh_token: refresh_token
