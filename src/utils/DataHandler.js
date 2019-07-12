@@ -17,7 +17,8 @@ const getGraphData = async () => {
 }
 
 const addUserListeningHistory = async (user, history) => {
-    const response = await axios.post("http://localhost:8080/graph/addUserHistory", {
+    //http://localhost:8080
+    const response = await axios.post("https://polar-waters-86790.herokuapp.com/graph/addUserHistory", {
         user: user,
         artists: history
     });

@@ -48,7 +48,7 @@ app.use('/graph', graphRouter);
 
 var client_id = 'd2f48bb1bc624a1f82ec7b7ed94e0be5'; // Your client id
 var client_secret = '33d20328f0f743fb8e057168afc69293'; // Your secret
-var redirect_uri = 'http://localhost:8080/callback'; // Your redirect uri
+var redirect_uri = process.env.NODE_ENV === 'production' ? "https://polar-waters-86790.herokuapp.com/callback":'http://localhost:8080/callback'; // Your redirect uri
 
 /**
  * Generates a random string containing numbers and letters
@@ -133,7 +133,7 @@ app.get('/callback', function(req, res) {
                 });
 
                 // we can also pass the token to the browser to make requests from there
-                res.redirect('http://localhost:3000/#' +
+                res.redirect('https://polar-waters-86790.herokuapp.com/#' +
                     querystring.stringify({
                         access_token: access_token,
                         refresh_token: refresh_token
