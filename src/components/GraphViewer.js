@@ -162,9 +162,9 @@ class GraphViewer extends Component {
 
   async componentDidMount() {
     SpotifyAPI.setAccessToken(this.props.accessToken);
-    let user = await SpotifyAPI.getUserProfile();
-    let history = await SpotifyAPI.getUserListeningHistory();
-    await DataHandler.addUserListeningHistory(user, history);
+    //let user = await SpotifyAPI.getUserProfile();
+    //let history = await SpotifyAPI.getUserListeningHistory();
+    //await DataHandler.addUserListeningHistory(user, history);
     let graph = await DataHandler.getGraphData();
     graph = await DataHandler.formatGraph(graph);
     this.setState({
