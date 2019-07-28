@@ -1,0 +1,51 @@
+.hub {
+    height:100%;
+    display: grid;
+    grid-template-columns: 70vw 30vw;
+    grid-template-rows: auto;
+    grid-template-areas:
+    "main sidebar";
+}
+
+.graphContainer {
+    grid-area: main;
+    overflow: hidden;
+}
+
+.sidebar {
+    grid-area: sidebar;
+}
+
+.loading {
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    display: block;
+  
+    /* Probably need media queries here */
+    width: 600px;
+    max-width: 100%;
+    
+    height: 400px;
+    max-height: 100%;
+    
+    position: fixed;
+    
+    z-index: 100;
+    
+    left: 50%;
+    top: 50%;
+    
+    /* Use this for centering if unknown width/height */
+    transform: translate(-50%, -50%);
+    
+    /* If known, negative margins are probably better (less chance of blurry text). */
+    /* margin: -200px 0 0 -200px; */
+    
+    background: white;
+    box-shadow: 0 0 60px 10px rgba(0, 0, 0, 0.9);
+}

@@ -1,6 +1,4 @@
-'use strict'
-
-class Artist {
+export default class Artist {
     constructor(artistObj) {
         this.id = artistObj.id;
         this.name = artistObj.name;
@@ -9,5 +7,3 @@ class Artist {
         this.genres = artistObj.genres;
     }
 }
-
-module.exports = Artist;

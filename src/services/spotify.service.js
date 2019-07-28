@@ -2,15 +2,15 @@ import Spotify from 'spotify-web-api-js';
 const spotifyWebApi = new Spotify();
 
 
-const setAccessToken = (token) => {
+export const setAccessToken = (token) => {
     spotifyWebApi.setAccessToken(token);
 }
 
-const getUserProfile = async () => {
+export const getUserProfile = async () => {
     return await spotifyWebApi.getMe();
 }
 
-const getUserListeningHistory = async () => {
+export const getUserListeningHistory = async () => {
     const options = {
         time_range: "short_term",
         limit: 50
@@ -30,10 +30,4 @@ const condenseData = async (short_term, medium_term) => {
     short_term.items.forEach(condenser);
     medium_term.items.forEach(condenser);
     return item_map.values();
-}
-
-export default {
-    setAccessToken,
-    getUserProfile,
-    getUserListeningHistory
 }

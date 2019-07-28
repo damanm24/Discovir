@@ -1,26 +1,17 @@
 import React, { Component } from "react";
-import DataHandler from "../utils/DataHandler";
 import * as d3 from "d3";
-import { connect } from "react-redux";
-import SpotifyAPI from "../utils/SpotifyAPI";
-import "./test.png";
+import { graphService } from "../../services/graph.service";
+import "./graph.css";
 
-const mapStateToProps = state => {
-  return {
-    loggedIn: state.loggedIn,
-    accessToken: state.accessToken
-  };
-};
-
-class GraphViewer extends Component {
-  constructor() {
-    super();
+export class Graph extends Component {
+  constructor(props) {
+    super(props);
     this.state = {
-      graphData: null
+      graph: this.props.graphData
     };
   }
 
-  async componentWillMount() {
+  drawGraph() {
     function dblclick(d) {
       d.fx = null;
       d.fy = null;
@@ -53,10 +44,10 @@ class GraphViewer extends Component {
           return d.source.y;
         })
         .attr("x2", function(d) {
-          return d.target.x + 25;
+          return d.target.x + 12;
         })
         .attr("y2", function(d) {
-          return d.target.y + 25;
+          return d.target.y + 12;
         });
       node
         .attr("x", function(d) {
@@ -66,20 +57,28 @@ class GraphViewer extends Component {
           return d.label === "User" ? d.y - 20 : d.y;
         });
     };
-    let graph = await DataHandler.getGraphData();
-    graph = await DataHandler.formatGraph(graph);
-    const width = window.innerWidth;
-    const height = window.innerHeight;
+
+    const width = window.innerWidth * 0.7;
+    const height = window.innerHeight * 0.7;
 
     var tooltip = d3
       .select("#root")
       .append("div")
       .attr("class", "tooltip");
-    var svg = d3
-      .select("#root")
-      .append("svg")
-      .attr("width", width)
-      .attr("height", height);
+
+    var svg = this.svg;
+
+    //add zoom capabilities
+    var zoom_handler = d3.zoom().on("zoom", zoom_actions);
+
+    zoom_handler(svg);
+
+    var g = svg.append("g");
+
+    function zoom_actions() {
+      g.attr("transform", d3.event.transform);
+    }
+
     var simulation = d3
       .forceSimulation()
       .force(
@@ -89,24 +88,24 @@ class GraphViewer extends Component {
           .id(function(d) {
             return d.id;
           })
-          .distance(150)
+          .distance(75)
       )
-      .force("charge", d3.forceManyBody().strength(-1500))
+      .force("charge", d3.forceManyBody().strength(-400))
       .force("center", d3.forceCenter(width / 2, height / 2));
 
-    var link = svg
+    var link = g
       .append("g")
       .style("stroke", "#aaa")
       .selectAll("line")
-      .data(graph.links)
+      .data(this.state.graph.links)
       .enter()
       .append("line");
 
-    var node = svg
+    var node = g
       .append("g")
       .attr("class", "nodes")
       .selectAll("circle")
-      .data(graph.nodes)
+      .data(this.state.graph.nodes)
       .enter()
       .append("g")
       .attr("id", d => {
@@ -129,8 +128,8 @@ class GraphViewer extends Component {
           return "user";
         }
       })
-      .attr("height", 40)
-      .attr("width", 40)
+      .attr("height", 35)
+      .attr("width", 35)
       .call(
         d3
           .drag()
@@ -153,28 +152,35 @@ class GraphViewer extends Component {
       .on("mouseout", function() {
         return tooltip.style("visibility", "hidden");
       })
-      .on("dblclick", dblclick);
-       
-    simulation.nodes(graph.nodes).on("tick", ticked);
+      .on("dblclick", dblclick)
+      .on("click", d => {
+        this.sendData(d);
+      });
 
-    simulation.force("link").links(graph.links);
+    simulation.nodes(this.state.graph.nodes).on("tick", ticked);
+
+    simulation.force("link").links(this.state.graph.links);
+  }
+
+  sendData(node) {
+    graphService.sendData(node);
   }
 
   async componentDidMount() {
-    SpotifyAPI.setAccessToken(this.props.accessToken);
+    this.drawGraph();
+    //TODO: Swap this function with the above one.
     //let user = await SpotifyAPI.getUserProfile();
     //let history = await SpotifyAPI.getUserListeningHistory();
     //await DataHandler.addUserListeningHistory(user, history);
-    let graph = await DataHandler.getGraphData();
-    graph = await DataHandler.formatGraph(graph);
-    this.setState({
-      graphData: graph
-    });
   }
 
   render() {
-    return null;
+    return (
+      <svg
+        width="100%"
+        height="100%"
+        ref={element => (this.svg = d3.select(element))}
+      />
+    );
   }
 }
-
-export default connect(mapStateToProps)(GraphViewer);

@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from 'axios'
 
-const getGraphData = async () => {
+export const getGraphData = async () => {
     //http://localhost:7474/db/data/
     const response = await axios.post("https://hobby-phccgenlakdagbkekfmdoidl.dbs.graphenedb.com:24780/db/data/transaction/commit", {
         "statements": [{
@@ -16,7 +16,7 @@ const getGraphData = async () => {
     return response.data;
 }
 
-const addUserListeningHistory = async (user, history) => {
+export const addUserListeningHistory = async (user, history) => {
     //http://localhost:8080
     const response = await axios.post("https://polar-waters-86790.herokuapp.com/graph/addUserHistory", {
         user: user,
@@ -25,7 +25,7 @@ const addUserListeningHistory = async (user, history) => {
     return response.data;
 }
 
-const formatGraph = async (graphData) => {
+export const formatGraph = async (graphData) => {
     var nodes = [],
         links = [];
     let nodeSet = new Set();
@@ -38,7 +38,8 @@ const formatGraph = async (graphData) => {
                     svg:node.properties.image,
                     label: node.labels[0],
                     size: 400,
-                    name: node.properties.name
+                    name: node.properties.name,
+                    lookup: node.properties.id
                 };
                 nodes.push(newNode);
             }
@@ -57,9 +58,3 @@ const formatGraph = async (graphData) => {
         links: links
     };
 }
-
-export default {
-    getGraphData,
-    formatGraph,
-    addUserListeningHistory
-};

@@ -1,25 +1,17 @@
-import React, { Component } from "react";
+import React from "react";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { setAccessToken } from './services/spotify.service'
+import { Landing } from "./components/landing/landing.component";
+import { Hub } from "./components/hub/hub.component";
 import "./App.css";
-import { connect } from "react-redux";
-import Home from "./components/Home/home";
-import GraphViewer from "./components/GraphViewer";
-import SpotifyAPI from "./utils/SpotifyAPI";
 
-const mapStateToProps = state => {
-  return {
-    loggedIn: state.loggedIn,
-    accessToken: state.accessToken
-  };
-};
-
-class App extends Component {
-  constructor(props) {
-    super(props);
-    const params = this.login();
-    if (params.access_token) {
-      SpotifyAPI.setAccessToken(params.access_token);
-      this.updateAccessToken(params.access_token);
-    }
+export class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      logged_in: false,
+      access_token: null
+    };
   }
 
   login = () => {
@@ -34,14 +26,30 @@ class App extends Component {
     return hashParams;
   };
 
-  updateAccessToken = token => {
-    this.props.dispatch({ type: "UPDATE ACCESS-TOKEN", value: token });
+  componentWillMount = async () => {
+    const params = this.login();
+    if (params.access_token) {
+      this.setState({ logged_in: true, access_token: params.access_token });
+      setAccessToken(params.access_token);
+    }
   };
 
   render() {
-    if (!this.props.loggedIn) return <Home>Not logged in</Home>;
-    else return <GraphViewer></GraphViewer>;
+    let page;
+
+    if (this.state.logged_in) {
+      page = <Hub></Hub>
+    } else {
+      page = <Landing></Landing>
+    }
+
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        {page}
+      </React.Fragment>
+    );
   }
 }
 
-export default connect(mapStateToProps)(App);
+export default App;

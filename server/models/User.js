@@ -1,6 +1,4 @@
-'use strict'
-
-class User {
+export default class User {
     constructor(userObj) {
         this.id = userObj.id;
         this.name = userObj.display_name;
@@ -8,5 +6,3 @@ class User {
     }
 
 }
-
-module.exports = User;
