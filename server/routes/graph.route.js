@@ -1,7 +1,9 @@
-import { Router } from "express";
-import { addUserListeningHistory } from "../controllers/graph.controller";
-let graph = Router();
+import { Router } from 'express';
+import { addUserListeningHistory, getRecommendations } from '../controllers/graph.controller';
 
-graph.post('/addUserHistory', addUserListeningHistory)
+const graph = Router();
+
+graph.post('/addUserHistory', addUserListeningHistory);
+graph.get('/generateRecommendations', getRecommendations);
 
 export default graph;

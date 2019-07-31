@@ -1,10 +1,10 @@
 .hub {
     height:100%;
     display: grid;
-    grid-template-columns: 70vw 30vw;
+    grid-template-columns: 70vw 25vw 5vw;
     grid-template-rows: auto;
     grid-template-areas:
-    "main sidebar";
+    "main sidebar margin";
 }
 
 .graphContainer {

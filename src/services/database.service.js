@@ -4,7 +4,7 @@ export const getGraphData = async () => {
     //http://localhost:7474/db/data/
     const response = await axios.post("https://hobby-phccgenlakdagbkekfmdoidl.dbs.graphenedb.com:24780/db/data/transaction/commit", {
         "statements": [{
-            "statement": "MATCH path = (n:User)-[r:LISTENS_TO]->(m:Artist) RETURN path",
+            "statement": "MATCH path = (u1:User)-[r1:LISTENS_TO]->(artist:Artist)<-[:LISTENS_TO]-(u2:User) where u1<>u2 RETURN path",
             "resultDataContents": ["graph"]
         }]
     }, {
@@ -13,6 +13,7 @@ export const getGraphData = async () => {
             'content-type': 'application/json'
         }
     });
+    console.log(response.data);
     return response.data;
 }
 

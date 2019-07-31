@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./sidebar.css"
 import { graphService } from "../../services/graph.service";
 
 export class Sidebar extends React.Component {
@@ -23,23 +23,25 @@ export class Sidebar extends React.Component {
     this.subscription.unsubscribe();
   };
 
-  render() {
-    let name = "";
-    let img = "";
-    if (this.state.clicked !== 0) {
-      if (this.state.clicked.length === 1) {
-        name = this.state.clicked[0].name;
-        img = this.state.clicked[0].svg;
-      } else {
-        name = this.state.clicked[1].name;
-        img = this.state.clicked[1].svg;
-      }
-    }
+  templateElement(element) {
     return (
       <div>
-        <img src={img} max-height="250px" />
-        <h1>{name}</h1>
+        <img src={element.svg} className="image" />
+        <h2>{element.name}</h2>
       </div>
     );
+  }
+
+  render() {
+    let toRender = [];
+    if (this.state.clicked.length === 1) {
+      toRender.push(this.templateElement(this.state.clicked[0]));
+    } else if (this.state.clicked.length === 2) {
+      if (this.state.clicked[0].label === this.state.clicked[1].label) {
+        toRender.push(this.templateElement(this.state.clicked[0]));
+      }
+      toRender.push(this.templateElement(this.state.clicked[1]));
+    }
+    return <div>{toRender}</div>;
   }
 }
