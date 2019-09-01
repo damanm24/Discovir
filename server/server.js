@@ -26,16 +26,17 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/auth', auth);
 app.use('/graph', graph);
 
-const server = app.listen(8080, () => {
+const port = process.env.PORT || 8080;
+
+const server = app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log('Discovir server loaded on port 8080');
 });
 
 process.on('SIGTERM', () => {
+  disconnect();
   server.close(() => {
     // eslint-disable-next-line no-console
     console.log('Server terminated');
   });
-
-  disconnect();
 });

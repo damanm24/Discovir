@@ -1,7 +1,9 @@
-import { getSession } from "../database.helper";
-import User from "../../models/User";
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-underscore-dangle */
+import { getSession } from '../database.helper';
+import User from '../../models/User';
 
-export const findSimilarUsers = async user => {
+const findSimilarUsers = async user => {
   const query = `
     MATCH (p1:User {id: "${user.id}"})-[]->(artist1)
     WITH p1, collect(id(artist1)) as p1Artists
@@ -15,9 +17,9 @@ export const findSimilarUsers = async user => {
     .then(result => {
       session.close();
       return result.records.map(record => {
-        let data = JSON.parse(JSON.stringify(record));
-        let similarUser = new User(data._fields[1].properties);
-        similarUser.similarity = data._fields[2]
+        const data = JSON.parse(JSON.stringify(record));
+        const similarUser = new User(data._fields[1].properties);
+        similarUser.similarity = data._fields[2];
         return similarUser;
       });
     })
@@ -27,4 +29,18 @@ export const findSimilarUsers = async user => {
     });
 };
 
+const findDisjoint = async (user, otherUser) => {
+  const query = `
+    MATCH (p1:User {id: "${otherUser.id}"})-[]->(a:Artist)
+    WITH a
+    MATCH (p2:User {id: "${user.id}"})-[]->(:Artist)
+    WHERE NOT EXISTS((p2)-[]->(a))
+    MATCH (a)-[:RELATED_TO]->(g:Genre)<-[:LIKES]-(p2)
+    WITH a as filteredArtists
+    MATCH (filteredArtists)-[:RELATED_TO]->(g1:Genre)
+    WITH filteredArtists, collect(id(g1)) as ids
+    RETURN ids
+  `
+}
 
+export {findSimilarUsers, getNewArtists};

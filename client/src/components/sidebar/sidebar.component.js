@@ -2,7 +2,7 @@ import React from "react";
 import "./sidebar.css"
 import { graphService } from "../../services/graph.service";
 
-export class Sidebar extends React.Component {
+class Sidebar extends React.Component {
   constructor() {
     super();
     this.state = {
@@ -45,3 +45,5 @@ export class Sidebar extends React.Component {
     return <div>{toRender}</div>;
   }
 }
+
+export default Sidebar

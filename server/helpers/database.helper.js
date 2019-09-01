@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { v1 as neo4j } from 'neo4j-driver';
 import { uri, user, password } from '../const/database.credentials';
 

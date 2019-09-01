@@ -4,9 +4,9 @@ import {
   addUserListeningHistory,
   formatGraph
 } from "../../services/database.service";
-import { Graph } from "../graph/graph.component";
+import Graph from "../graph/graph.component";
 import Tutorial from "../tutorial/tutorial.component";
-import { Sidebar } from "../sidebar/sidebar.component";
+import Sidebar from "../sidebar/sidebar.component";
 import "./hub.css";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Modal from "@material-ui/core/Modal";

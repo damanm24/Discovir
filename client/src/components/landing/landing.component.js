@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./landing.css";
 import { Container } from "@material-ui/core";
-import Button from "@material-ui/core/Button";
 
 export class Landing extends Component {
   constructor() {
