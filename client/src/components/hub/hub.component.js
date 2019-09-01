@@ -4,6 +4,9 @@ import {
   addUserListeningHistory,
   formatGraph
 } from "../../services/database.service";
+import {
+  getUserProfile
+} from "../../services/spotify.service";
 import Graph from "../graph/graph.component";
 import Tutorial from "../tutorial/tutorial.component";
 import Sidebar from "../sidebar/sidebar.component";
@@ -26,7 +29,8 @@ export class Hub extends React.Component {
   };
 
   async componentDidMount() {
-    let graph = await getGraphData();
+    let user = await getUserProfile();
+    let graph = await getGraphData(user.id);
     graph = await formatGraph(graph);
     this.setState({ loading: false, graph: graph, modal_open: true });
   }

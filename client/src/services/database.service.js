@@ -1,10 +1,10 @@
 import axios from 'axios'
 
-export const getGraphData = async () => {
+export const getGraphData = async (id) => {
     //http://localhost:7474/db/data/
     const response = await axios.post("https://hobby-phccgenlakdagbkekfmdoidl.dbs.graphenedb.com:24780/db/data/transaction/commit", {
         "statements": [{
-            "statement": "MATCH path = (u1:User)-[r1:LISTENS_TO]->(artist:Artist)<-[:LISTENS_TO]-(u2:User) where u1<>u2 RETURN path",
+            "statement": `MATCH path = (u1:User {id: "${id}"})-[r1:LISTENS_TO]->(artist:Artist)<-[:LISTENS_TO]-(u2:User) where u1<>u2 RETURN path`,
             "resultDataContents": ["graph"]
         }]
     }, {
@@ -19,7 +19,7 @@ export const getGraphData = async () => {
 
 export const addUserListeningHistory = async (user, history) => {
     //http://localhost:8080
-    const response = await axios.post("https://polar-waters-86790.herokuapp.com/graph/addUserHistory", {
+    const response = await axios.post("/graph/addUserHistory", {
         user: user,
         artists: history
     });

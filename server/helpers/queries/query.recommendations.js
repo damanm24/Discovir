@@ -43,4 +43,4 @@ const findDisjoint = async (user, otherUser) => {
   `
 }
 
-export {findSimilarUsers, getNewArtists};
+export {findSimilarUsers, findDisjoint};
