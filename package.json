@@ -15,7 +15,7 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "neo4j-driver": "^1.7.5",
     "path": "^0.12.7",
     "query-string": "^6.8.2",
